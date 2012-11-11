@@ -9,7 +9,8 @@ namespace AntiScrape.Core
     {
         Delay,
         Error,
-        NoResponse,
+        EmptyResponse,
+        CustomResponse,
         None
     }
 }

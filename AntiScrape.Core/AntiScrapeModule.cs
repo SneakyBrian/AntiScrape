@@ -115,7 +115,6 @@ namespace AntiScrape.Core
                         Thread.Sleep(delay);
 
                         application.Context.Response.StatusCode = (int)HttpStatusCode.OK;
-                        application.Context.Response.Write(content);
                         application.Context.Response.End();
 
                         break;
@@ -130,10 +129,18 @@ namespace AntiScrape.Core
 
                         break;
 
-                    case AntiScrapeAction.NoResponse:
+                    case AntiScrapeAction.EmptyResponse:
 
                         application.Context.Response.StatusCode = (int)HttpStatusCode.OK;
                         application.Context.Response.SuppressContent = true;
+                        application.Context.Response.End();
+
+                        break;
+
+                    case AntiScrapeAction.CustomResponse:
+
+                        application.Context.Response.StatusCode = (int)HttpStatusCode.OK;
+                        application.Context.Response.Write(content);
                         application.Context.Response.End();
 
                         break;
