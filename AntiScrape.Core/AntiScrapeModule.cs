@@ -8,16 +8,33 @@ using System.Net;
 using System.Web.UI;
 using System.IO;
 using System.Diagnostics;
+using System.ComponentModel;
+using Microsoft.Practices.Unity;
+using UnityConfiguration;
+using AntiScrape.Core.IoC;
+using AntiScrape.Core.Interfaces;
 
 namespace AntiScrape.Core
 {
     public class AntiScrapeModule : IHttpModule
     {
+        private IDataStorage _storage;
+        
         public void Dispose() { }
 
         public void Init(HttpApplication context)
         {
             Debug.WriteLine("AntiScrapeModule.Init");
+
+            using (var container = new UnityContainer())
+            {
+                container.Configure(x =>
+                {
+                    x.AddRegistry<IoCRegistry>();
+                });
+
+                _storage = container.Resolve<IDataStorage>();
+            }
 
             context.BeginRequest += OnBeginRequest;
             context.PostMapRequestHandler += OnPostMapRequestHandler;
@@ -55,14 +72,19 @@ namespace AntiScrape.Core
             var application = sender as HttpApplication;
 
             if (application != null)
-            {
-                if (!application.Context.Request.Url.AbsolutePath.Contains(AntiScrapeConfiguration.Settings.HoneypotRelativeUrl))
+            {                
+                if (application.Context.Request.Url.AbsolutePath.Contains(AntiScrapeConfiguration.Settings.HoneypotRelativeUrl))
                 {
-                    Debug.WriteLine("Request.Url.AbsolutePath '{0}' does not contain '{1}'", 
+                    Debug.WriteLine("Request.Url.AbsolutePath '{0}' contains '{1}'", 
                                         application.Context.Request.Url.AbsolutePath, 
                                         AntiScrapeConfiguration.Settings.HoneypotRelativeUrl);
-                    return;
+
+                    _storage.StoreScrapingRequest(application.Context.Request);
                 }
+                else if (!_storage.IsKnownScraper(application.Context.Request))
+                    return;
+
+                Debug.WriteLine("Known Scraper!");
 
                 var content = "<html><head><title></title></head><body></body></html>";
 

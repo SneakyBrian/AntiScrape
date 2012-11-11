@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>UnityConfiguration</id>
+    <version>1.4.1</version>
+    <title />
+    <authors>Thomas Pedersen (thedersen)</authors>
+    <owners>Thomas Pedersen (thedersen)</owners>
+    <licenseUrl>http://thedersen.mit-license.org/</licenseUrl>
+    <projectUrl>https://github.com/thedersen/UnityConfiguration</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Convention based configuration API for the Microsoft Unity IoC container. With just a few lines of code, you can now registere all your classes in the entire solution. If the built-in conventions doesn't fit your needs, it is very easy to extend with your own.</description>
+    <tags>unity ioc convention auto</tags>
+    <dependencies>
+      <dependency id="Unity" version="2.0" />
+    </dependencies>
+  </metadata>
+</package>
