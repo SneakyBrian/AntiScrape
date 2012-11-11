@@ -3,7 +3,7 @@
     <metadata>
         <id>AntiScrape.Core</id>
         <version>1.0.0</version>
-        <title>AntiScrape ASP.NET HTTP Module</title>
+        <title>AntiScrape ASP.NET HTTP Module Core</title>
         <authors>SneakyBrian</authors>
         <owners />
         <projectUrl>https://github.com/SneakyBrian/AntiScrape</projectUrl>
@@ -20,6 +20,7 @@ AntiScrape is the full package including a reference implementation for SQL Serv
         </dependencies>
     </metadata>
     <files>
-        <file src="..\AntiScrape.Web\bin\AntiScrape.Core.dll" target="lib\AntiScrape.Core.dll" />
+        <file src="content\web.config.transform" target="content\web.config.transform" />
+        <file src="lib\net40\AntiScrape.Core.dll" target="lib\net40\AntiScrape.Core.dll" />
     </files>
 </package>
