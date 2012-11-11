@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>AntiScrape.DataStorage</id>
+        <version>1.0.0</version>
+        <title>AntiScrape ASP.NET HTTP Module Data Storage</title>
+        <authors>SneakyBrian</authors>
+        <owners />
+        <projectUrl>https://github.com/SneakyBrian/AntiScrape</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>AntiScrape is an IIS ASP.NET Http Module to help in the fight against website scrapers!</description>
+        <releaseNotes>This is the reference data storage assembly. It contains an implementation of IDataStorage that uses Dapper and Dapper.Rainbow to permit data persistence in all .net ado providers including sqlite, sqlce, firebird, oracle, MySQL and SQL Server.</releaseNotes>
+        <tags>Scraping, Content, ASP.NET, IIS</tags>
+        <dependencies>
+            <dependency id="Dapper" version="1.8" />
+            <dependency id="Dapper.Rainbow" version="0.1.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\AntiScrape.Schema\AntiScrape.DataStorage.sql" target="content\AntiScrape.Schema\AntiScrape.DataStorage.sql" />
+        <file src="content\web.config.transform" target="content\web.config.transform" />
+        <file src="lib\net40\AntiScrape.DataStorage.dll" target="lib\net40\AntiScrape.DataStorage.dll" />
+    </files>
+</package>
