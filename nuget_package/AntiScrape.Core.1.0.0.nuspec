@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>AntiScrape.Core</id>
+        <version>1.0.0</version>
+        <title>AntiScrape ASP.NET HTTP Module</title>
+        <authors>SneakyBrian</authors>
+        <owners />
+        <projectUrl>https://github.com/SneakyBrian/AntiScrape</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>AntiScrape is an IIS ASP.NET Http Module to help in the fight against website scrapers!</description>
+        <summary />
+        <releaseNotes>This is the Core module. Requires an implementation of IDataStorage to be in an assembly in the bin folder of the application.
+
+AntiScrape is the full package including a reference implementation for SQL Server.</releaseNotes>
+        <tags>Scraping, Content, ASP.NET, IIS</tags>
+        <dependencies>
+            <dependency id="Unity" version="2.1.505.2" />
+            <dependency id="UnityConfiguration" version="1.4.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\AntiScrape.Web\bin\AntiScrape.Core.dll" target="lib\AntiScrape.Core.dll" />
+    </files>
+</package>
