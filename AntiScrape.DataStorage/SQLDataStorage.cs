@@ -26,7 +26,7 @@ namespace AntiScrape.DataStorage
         {
             using (var db = GetDB())
             {
-                var count = db.Execute(@"select count(*) from ScrapeRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request));
+                var count = db.Query<int>(@"select count(IP) from ScrapeRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
 
                 return count > 0;
             }

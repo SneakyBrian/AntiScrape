@@ -22,7 +22,7 @@ namespace AntiScrape.DataStorage
                 IP = request.UserHostAddress,
                 HostName = request.UserHostName,
                 UserAgent = request.UserAgent,
-                Referrer = request.UrlReferrer.ToString(),
+                Referrer = request.UrlReferrer != null ? request.UrlReferrer.ToString() : string.Empty,
                 Params = request.Params.AllKeys.Select(key => string.Format("{0}={1}", key, request.Params[key])).Aggregate((a, b) => string.Format("{0};{1}", a, b)),
                 Headers = request.Headers.AllKeys.Select(key => string.Format("{0}={1}", key, request.Headers[key])).Aggregate((a, b) => string.Format("{0};{1}", a, b)),
             };

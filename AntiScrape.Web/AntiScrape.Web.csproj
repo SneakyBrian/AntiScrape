@@ -62,7 +62,9 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -136,6 +138,10 @@
     <ProjectReference Include="..\AntiScrape.Core\AntiScrape.Core.csproj">
       <Project>{12592370-8CF6-4065-9F84-733A85515CAE}</Project>
       <Name>AntiScrape.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AntiScrape.DataStorage\AntiScrape.DataStorage.csproj">
+      <Project>{4C5A05F1-FC5A-46EF-AAE9-456258478241}</Project>
+      <Name>AntiScrape.DataStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
