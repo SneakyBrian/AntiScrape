@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E339E1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.DataStorage", "AntiScrape.DataStorage\AntiScrape.DataStorage.csproj", "{4C5A05F1-FC5A-46EF-AAE9-456258478241}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{E2C8ED83-E13A-4042-A31A-AE5EF48F8629}"
+	ProjectSection(SolutionItems) = preProject
+		db\db.sql = db\db.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
