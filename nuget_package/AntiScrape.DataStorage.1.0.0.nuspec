@@ -14,6 +14,7 @@
         <dependencies>
             <dependency id="Dapper" version="1.8" />
             <dependency id="Dapper.Rainbow" version="0.1.2" />
+            <dependency id="AntiScrape.Core" version="1.0.0" />
         </dependencies>
     </metadata>
     <files>
