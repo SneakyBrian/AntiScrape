@@ -14,4 +14,20 @@
         You can also find <a href="http://go.microsoft.com/fwlink/?LinkID=152368&amp;clcid=0x409"
             title="MSDN ASP.NET Docs">documentation on ASP.NET at MSDN</a>.
     </p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>User Agent</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% foreach (var item in AntiScrape.InMemoryStore.InMemoryStorage.GetScrapers())
+            {
+                Response.Write(string.Format("<tr><td>{0}</td><td>{1}</td></tr>", item.Item1, item.Item2)); 
+            } %>
+        </tbody>
+    </table>
+        
 </asp:Content>
