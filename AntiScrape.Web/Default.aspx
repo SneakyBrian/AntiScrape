@@ -5,16 +5,19 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        Welcome to ASP.NET!
+        This is the AntiScrape Demo Page
     </h2>
     <p>
-        To learn more about ASP.NET visit <a href="http://www.asp.net" title="ASP.NET Website">www.asp.net</a>.
+        AntiScrape is an IIS ASP.NET Http Module to help in the fight against website scrapers!
     </p>
     <p>
-        You can also find <a href="http://go.microsoft.com/fwlink/?LinkID=152368&amp;clcid=0x409"
-            title="MSDN ASP.NET Docs">documentation on ASP.NET at MSDN</a>.
+        To learn more about AntiScrape visit <a href="https://github.com/SneakyBrian/AntiScrape" title="AntiScrape on Github">AntiScrape on Github</a>.
     </p>
     
+    <h3>
+        Here is the list of currently detected scrapers:
+    </h3>
+
     <table>
         <thead>
             <tr>
@@ -25,7 +28,7 @@
         <tbody>
         <% foreach (var item in AntiScrape.InMemoryStore.InMemoryStorage.GetScrapers())
             {
-                Response.Write(string.Format("<tr><td>{0}</td><td>{1}</td></tr>", item.Item1, item.Item2)); 
+                Response.Write(string.Format("<tr><td>{0}.xxx.xxx.xxx</td><td>{1}</td></tr>", item.Item1.Substring(0, item.Item1.IndexOf('.')), item.Item2)); 
             } %>
         </tbody>
     </table>
