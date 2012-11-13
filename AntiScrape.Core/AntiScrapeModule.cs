@@ -88,7 +88,7 @@ namespace AntiScrape.Core
 
                 var content = "<html><head><title></title></head><body></body></html>";
 
-                if(string.IsNullOrWhiteSpace(AntiScrapeConfiguration.Settings.ContentVirtualPath))
+                if(!string.IsNullOrWhiteSpace(AntiScrapeConfiguration.Settings.ContentVirtualPath))
                 {
                     var contentPath = application.Context.Server.MapPath(AntiScrapeConfiguration.Settings.ContentVirtualPath);
 
@@ -114,8 +114,7 @@ namespace AntiScrape.Core
 
                         Thread.Sleep(delay);
 
-                        application.Context.Response.StatusCode = (int)HttpStatusCode.OK;
-                        application.Context.Response.End();
+                        //continue processing request
 
                         break;
 
