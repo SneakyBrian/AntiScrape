@@ -2,6 +2,11 @@
 
  AntiScrape is an IIS ASP.NET Http Module to help in the fight against website scrapers!
 
+## Live Demo ##
+
+Live demo is available on Windows Azure here:
+[AntiScrape Demo](http://antiscrapedemo.azurewebsites.net/ "AntiScrape Demo")
+
 ## How does it work? ##
 
 AntiScrape hooks into the IIS ASP.NET request/response pipeline. 
