@@ -21,14 +21,14 @@
     <table>
         <thead>
             <tr>
-                <th>IP Address</th>
+                <th>Partial IP</th>
                 <th>User Agent</th>
             </tr>
         </thead>
         <tbody>
         <% foreach (var item in AntiScrape.InMemoryStore.InMemoryStorage.GetScrapers())
             {
-                Response.Write(string.Format("<tr><td>{0}.xxx.xxx.xxx</td><td>{1}</td></tr>", item.Item1.Substring(0, item.Item1.IndexOf('.')), item.Item2)); 
+                Response.Write(string.Format("<tr><td>{0}</td><td>{1}</td></tr>", item.Item1.Substring(0, item.Item1.Length / 2), item.Item2)); 
             } %>
         </tbody>
     </table>
