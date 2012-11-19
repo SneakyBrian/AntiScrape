@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>AntiScrape.Core</id>
-        <version>1.0.0</version>
+        <version>0.1.0.0</version>
         <title>AntiScrape ASP.NET HTTP Module Core</title>
         <authors>SneakyBrian</authors>
         <owners />
@@ -19,8 +19,4 @@ AntiScrape is the full package including a reference implementation for SQL Serv
             <dependency id="UnityConfiguration" version="1.4.1" />
         </dependencies>
     </metadata>
-    <files>
-        <file src="content\web.config.transform" target="content\web.config.transform" />
-        <file src="lib\net40\AntiScrape.Core.dll" target="lib\net40\AntiScrape.Core.dll" />
-    </files>
 </package>

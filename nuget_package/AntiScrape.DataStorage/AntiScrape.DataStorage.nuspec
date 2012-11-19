@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>AntiScrape.DataStorage</id>
-        <version>1.0.0</version>
+        <version>0.1.0.0</version>
         <title>AntiScrape ASP.NET HTTP Module Data Storage</title>
         <authors>SneakyBrian</authors>
         <owners />
@@ -14,12 +14,7 @@
         <dependencies>
             <dependency id="Dapper" version="1.8" />
             <dependency id="Dapper.Rainbow" version="0.1.2" />
-            <dependency id="AntiScrape.Core" version="1.0.0" />
+            <dependency id="AntiScrape.Core" version="0.1.0.0" />
         </dependencies>
     </metadata>
-    <files>
-        <file src="content\AntiScrape.Schema\AntiScrape.DataStorage.sql" target="content\AntiScrape.Schema\AntiScrape.DataStorage.sql" />
-        <file src="content\web.config.transform" target="content\web.config.transform" />
-        <file src="lib\net40\AntiScrape.DataStorage.dll" target="lib\net40\AntiScrape.DataStorage.dll" />
-    </files>
 </package>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="AntiScrape" type="AntiScrape.Core.AntiScrapeConfiguration, AntiScrape.Core" />
+  </configSections>
+  <!-- 
+    AntiScrape Settings:
+        honeypotRelativeUrl - url for the honeypot (that shouldn't exist in your web application!) 
+        action - what to do if someone access the honeypot url.  Possible actions: Delay, Error, EmptyResponse, CustomResponse, None
+        minDelay - if the action is Delay, this specifies the minimum number of milliseconds to delay
+        maxDelay - if the action is Delay, this specified the maximum number of milliseconds to delay
+        contentVirtualPath - if the action is CustomResponse, this specified the virtual path to the content
+        errorCode - if the action is Error, this specifies the error code to use in the response
+  -->
+  <AntiScrape honeypotRelativeUrl="honey/pot/" action="None" minDelay="100" maxDelay="200" contentVirtualPath="~/scrapermessage.html" errorCode="NoContent" />
+  <system.webServer>
+    <modules>
+      <add name="AntiScrape" type="AntiScrape.Core.AntiScrapeModule, AntiScrape.Core" />
+    </modules>
+  </system.webServer>
+</configuration  
