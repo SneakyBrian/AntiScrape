@@ -6,7 +6,7 @@ using Dapper;
 
 namespace AntiScrape.DataStorage
 {
-    class ASDB : Database<ASDB>
+    class DataRepository : Database<DataRepository>
     {
         public Table<ScrapeRequest> ScrapeRequests { get; set; }
     }

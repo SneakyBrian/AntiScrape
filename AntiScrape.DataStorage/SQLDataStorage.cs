@@ -7,18 +7,18 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 using Dapper;
+using System.Data.Common;
 
 namespace AntiScrape.DataStorage
 {
-    
-
     public class SQLDataStorage : IDataStorage
     {
         public void StoreScrapingRequest(HttpRequest request)
         {
             using (var db = GetDB())
             {
-                db.ScrapeRequests.Insert(ScrapeRequest.FromHttpRequest(request));
+                db.Execute("insert into ScrapeRequests ([IP], [HostName], [UserAgent], [Referrer], [Params], [Headers], [Timestamp]) values (@IP, @HostName, @UserAgent, @Referrer, @Params, @Headers, @Timestamp)", 
+                    ScrapeRequest.FromHttpRequest(request));
             }
         }
 
@@ -26,21 +26,35 @@ namespace AntiScrape.DataStorage
         {
             using (var db = GetDB())
             {
-                var count = db.Query<int>(@"select count(IP) from ScrapeRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
+                var count = db.Query<int>(@"select count([IP]) from ScrapeRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
 
                 return count > 0;
             }
         }
 
-        private ASDB GetDB()
+        public IEnumerable<dynamic> GetScrapers()
         {
-            return ASDB.Init(GetConnection(), commandTimeout: 100);
+            using (var db = GetDB())
+            {
+                return db.Query("select * from ScrapeRequests");
+            }
         }
 
-        private SqlConnection GetConnection()
+        private DataRepository GetDB()
         {
-            var cn = new SqlConnection(ConfigurationManager.ConnectionStrings["AntiScrape.DataStorage.SQLDataStorage"].ConnectionString);
+            return DataRepository.Init(GetConnection(), commandTimeout: 0);
+        }
+
+        private DbConnection GetConnection()
+        {
+            var dbProviderFactory = DbProviderFactories.GetFactory("AntiScrape.DataStorage.DBProvider");
+
+            var cn = dbProviderFactory.CreateConnection();
+
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["AntiScrape.DataStorage.SQLDataStorage"].ConnectionString;
+
             cn.Open();
+
             return cn;
         }
     }

@@ -23,12 +23,13 @@
             <tr>
                 <th>Partial IP</th>
                 <th>User Agent</th>
+                <th>Timestamp</th>
             </tr>
         </thead>
         <tbody>
-        <% foreach (var item in AntiScrape.InMemoryStore.InMemoryStorage.GetScrapers())
+        <%  foreach (var item in new AntiScrape.DataStorage.SQLDataStorage().GetScrapers())
             {
-                Response.Write(string.Format("<tr><td>{0}</td><td>{1}</td></tr>", item.Item1.Substring(0, item.Item1.Length / 2), item.Item2)); 
+                Response.Write(string.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>", item.IP.Substring(0, item.IP.Length / 2), item.UserAgent, item.Timestamp)); 
             } %>
         </tbody>
     </table>

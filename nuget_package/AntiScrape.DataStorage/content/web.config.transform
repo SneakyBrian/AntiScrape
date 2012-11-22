@@ -3,3 +3,13 @@
     <add name="AntiScrape.DataStorage.SQLDataStorage" connectionString="ENTER YOUR CONNECTION STRING HERE" providerName="System.Data.SqlClient" />    
   </connectionStrings>
 </configuration>  
+  <system.data>
+    <DbProviderFactories>
+      <remove invariant="AntiScrape.DataStorage.DBProvider" />
+      <add 
+        name="AntiScrape.DataStorage.DBProvider" 
+        invariant="AntiScrape.DataStorage.DBProvider" 
+        description="DbProviderFactory used by AntiScrape.DataStorage.SQLDataStorage" 
+        type="ENTER THE FULLY QUALIFIED TYPE OF YOUR DBPROVIDERFACTORY HERE" />
+    </DbProviderFactories>
+  </system.data>

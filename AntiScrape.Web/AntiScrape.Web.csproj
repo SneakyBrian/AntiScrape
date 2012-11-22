@@ -38,6 +38,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -56,6 +59,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="App_Data\AntiScrape.sdf" />
     <Content Include="robots.txt" />
     <Content Include="ScraperMessage.html" />
     <Content Include="Styles\Site.css" />
@@ -129,9 +133,7 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
@@ -141,9 +143,9 @@
       <Project>{12592370-8CF6-4065-9F84-733A85515CAE}</Project>
       <Name>AntiScrape.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AntiScrape.InMemoryStore\AntiScrape.InMemoryStorage.csproj">
-      <Project>{26D8A2FA-83C8-42DD-9285-560520033622}</Project>
-      <Name>AntiScrape.InMemoryStorage</Name>
+    <ProjectReference Include="..\AntiScrape.DataStorage\AntiScrape.DataStorage.csproj">
+      <Project>{4C5A05F1-FC5A-46EF-AAE9-456258478241}</Project>
+      <Name>AntiScrape.DataStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
