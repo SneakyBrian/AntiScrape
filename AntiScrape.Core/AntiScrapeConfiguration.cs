@@ -60,5 +60,13 @@ namespace AntiScrape.Core
             get { return (HttpStatusCode)this["errorCode"]; }
             set { this["errorCode"] = value; }
         }
+
+        [ConfigurationProperty("classNameSalt", DefaultValue = "anti-scrape-salt", IsRequired = false)]
+        public string ClassNameSalt
+        {
+            get { return (string)this["classNameSalt"]; }
+            set { this["classNameSalt"] = value; }
+        }
+
     }
 }

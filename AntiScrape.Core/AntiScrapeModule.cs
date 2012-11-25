@@ -13,12 +13,14 @@ using Microsoft.Practices.Unity;
 using UnityConfiguration;
 using AntiScrape.Core.IoC;
 using AntiScrape.Core.Interfaces;
+using System.Security.Cryptography;
 
 namespace AntiScrape.Core
 {
     public class AntiScrapeModule : IHttpModule
     {
         private IDataStorage _storage;
+        private byte[] saltBytes = Encoding.Unicode.GetBytes(AntiScrapeConfiguration.Settings.ClassNameSalt);
         
         public void Dispose() { }
 
@@ -58,11 +60,28 @@ namespace AntiScrape.Core
 
             Page page = (Page)sender;
 
+            var data = new List<byte>();
+
+            data.AddRange(saltBytes);
+            data.AddRange(Encoding.Unicode.GetBytes(page.AppRelativeVirtualPath));
+
+            var sha1 = new SHA1Managed();
+
+            var hash = sha1.ComputeHash(data.ToArray());
+
+            var className = HttpServerUtility.UrlTokenEncode(hash);
+
+            Debug.WriteLine(string.Format("class name: {0}", className));
+
             var linkUri = new Uri(AntiScrapeConfiguration.Settings.HoneypotRelativeUrl, UriKind.Relative);
 
-            Debug.WriteLine("Link Uri: {0}", linkUri);
+            Debug.WriteLine(string.Format("Link Uri: {0}", linkUri));
 
-            page.Form.Controls.Add(new LiteralControl(string.Format("<a href=\"{0}\" style=\"display: none;\">{0}</a>", linkUri)));
+            //add css for link
+            page.Header.Controls.Add(new LiteralControl(string.Format("<style type=\"text/css\">.{0} {{ display: none; }}</style>", className)));
+
+            //add link
+            page.Form.Controls.Add(new LiteralControl(string.Format("<a class=\"{0}\" href=\"{1}\">{1}</a>", className, linkUri)));
         }
 
         void OnBeginRequest(object sender, EventArgs e)
@@ -75,9 +94,9 @@ namespace AntiScrape.Core
             {                
                 if (application.Context.Request.Url.AbsolutePath.Contains(AntiScrapeConfiguration.Settings.HoneypotRelativeUrl))
                 {
-                    Debug.WriteLine("Request.Url.AbsolutePath '{0}' contains '{1}'", 
+                    Debug.WriteLine(string.Format("Request.Url.AbsolutePath '{0}' contains '{1}'", 
                                         application.Context.Request.Url.AbsolutePath, 
-                                        AntiScrapeConfiguration.Settings.HoneypotRelativeUrl);
+                                        AntiScrapeConfiguration.Settings.HoneypotRelativeUrl));
 
                     _storage.StoreScrapingRequest(application.Context.Request);
                 }
@@ -100,7 +119,7 @@ namespace AntiScrape.Core
 
                 var action = AntiScrapeConfiguration.Settings.Action;
 
-                Debug.WriteLine("AntiScrapeConfiguration.Settings.Action = {0}", action);
+                Debug.WriteLine(string.Format("AntiScrapeConfiguration.Settings.Action = {0}", action));
 
                 switch (action)
                 {
@@ -110,7 +129,7 @@ namespace AntiScrape.Core
 
                         var delay = rng.Next(AntiScrapeConfiguration.Settings.MinDelay, AntiScrapeConfiguration.Settings.MaxDelay);
 
-                        Debug.WriteLine("Waiting {0}", delay);
+                        Debug.WriteLine(string.Format("Waiting {0}", delay));
 
                         Thread.Sleep(delay);
 
@@ -120,7 +139,7 @@ namespace AntiScrape.Core
 
                     case AntiScrapeAction.Error:
 
-                        Debug.WriteLine("AntiScrapeConfiguration.Settings.ErrorCode = {0}", AntiScrapeConfiguration.Settings.ErrorCode);
+                        Debug.WriteLine(string.Format("AntiScrapeConfiguration.Settings.ErrorCode = {0}", AntiScrapeConfiguration.Settings.ErrorCode));
 
                         application.Context.Response.StatusCode = (int)AntiScrapeConfiguration.Settings.ErrorCode;
                         application.Context.Response.SuppressContent = true;

@@ -12,7 +12,7 @@
         contentVirtualPath - if the action is CustomResponse, this specified the virtual path to the content
         errorCode - if the action is Error, this specifies the error code to use in the response
   -->
-  <AntiScrape honeypotRelativeUrl="honey/pot/" action="None" minDelay="100" maxDelay="200" contentVirtualPath="~/scrapermessage.html" errorCode="NoContent" />
+  <AntiScrape honeypotRelativeUrl="honey/pot/" action="None" minDelay="500" maxDelay="2000" contentVirtualPath="~/scrapermessage.html" errorCode="NoContent" classNameSalt="super-special-secret" />
   <system.webServer>
     <modules>
       <add name="AntiScrape" type="AntiScrape.Core.AntiScrapeModule, AntiScrape.Core" />
