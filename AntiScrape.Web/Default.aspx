@@ -29,7 +29,7 @@
         <tbody>
         <%  foreach (var item in new AntiScrape.DataStorage.SQLDataStorage().GetScrapers())
             {
-                Response.Write(string.Format("<tr><td>...{0}</td><td>{1}</td><td>{2}</td></tr>", item.IP.Substring(item.IP.Length / 2, item.IP.Length - 1), item.UserAgent, item.Timestamp)); 
+                Response.Write(string.Format("<tr><td>...{0}</td><td>{1}</td><td>{2}</td></tr>", item.IP.Substring(item.IP.Length / 2, item.IP.Length / 2), item.UserAgent, item.Timestamp)); 
             } %>
         </tbody>
     </table>
