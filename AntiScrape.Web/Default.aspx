@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-        <%  foreach (var item in new AntiScrape.DataStorage.SQLDataStorage().GetScrapers())
+        <%  foreach (var item in new AntiScrape.DataStorage.SQLDataStorage().GetScrapers(50))
             {
                 Response.Write(string.Format("<tr><td>...{0}</td><td>{1}</td><td>{2}</td></tr>", item.IP.Substring(item.IP.Length / 2, item.IP.Length / 2), item.UserAgent, item.Timestamp)); 
             } %>

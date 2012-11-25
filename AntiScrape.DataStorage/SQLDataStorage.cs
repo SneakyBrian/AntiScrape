@@ -32,11 +32,11 @@ namespace AntiScrape.DataStorage
             }
         }
 
-        public IEnumerable<dynamic> GetScrapers()
+        public IEnumerable<dynamic> GetScrapers(int count)
         {
             using (var db = GetDB())
             {
-                return db.Query("select * from ScrapeRequests");
+                return db.Query("select top (@Count) * from ScrapeRequests order by [Timestamp] desc", new { Count = count });
             }
         }
 
