@@ -22,7 +22,7 @@ namespace AntiScrape.Core
     {
         private IDataStorage _storage;
         private readonly byte[] _saltBytes;
-        private readonly AntiScrapeConfiguration _settings;
+        private readonly IAntiScrapeConfiguration _settings;
         private readonly Func<object, HttpApplicationBase> _getApplicationBase;
         
         public AntiScrapeModule()
@@ -30,7 +30,7 @@ namespace AntiScrape.Core
                     obj => new HttpApplicationWrapper(obj as HttpApplication))
         { }
 
-        public AntiScrapeModule(AntiScrapeConfiguration settings, 
+        public AntiScrapeModule(IAntiScrapeConfiguration settings, 
                                 Func<object, HttpApplicationBase> getApplicationBase)
         {
             _settings = settings;

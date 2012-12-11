@@ -23,7 +23,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.InMemoryStorage"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Support", "AntiScrape.Support\AntiScrape.Support.csproj", "{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Tests", "AntiScrape.Tests\AntiScrape.Tests.csproj", "{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{59638244-F4ED-4B38-8A89-44E362539739}"
+	ProjectSection(SolutionItems) = preProject
+		AntiScrape.vsmdi = AntiScrape.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = AntiScrape.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -49,6 +61,10 @@ Global
 		{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

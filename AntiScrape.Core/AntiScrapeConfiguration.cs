@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 using System.Net;
+using AntiScrape.Core.Interfaces;
 
 namespace AntiScrape.Core
 {
-    public class AntiScrapeConfiguration : ConfigurationSection
+    public class AntiScrapeConfiguration : ConfigurationSection, IAntiScrapeConfiguration
     {
 
         public static AntiScrapeConfiguration Settings { get; private set; }
