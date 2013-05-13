@@ -6,14 +6,14 @@ using System.Web;
 
 namespace AntiScrape.Support
 {
-    public class HttpApplicationWrapper : HttpApplicationBase
+    public class HttpApplicationWrapper : IHttpApplication
     {
         private readonly HttpApplication _application;
 
         public event EventHandler BeginRequest;
         public event EventHandler PostMapRequestHandler;
 
-        public override HttpContext Context { get { return _application.Context; } }
+        public HttpContext Context { get { return _application.Context; } }
         
         public HttpApplicationWrapper(HttpApplication application)
         {

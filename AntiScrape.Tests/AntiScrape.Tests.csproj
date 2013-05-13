@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AntiScrapeModuleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDataStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AntiScrape.Core\AntiScrape.Core.csproj">

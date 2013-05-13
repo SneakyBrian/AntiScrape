@@ -4,6 +4,9 @@ using System;
 using AntiScrape.Support;
 using AntiScrape.Core.Interfaces;
 using Moq;
+using System.Net;
+using System.Web;
+using System.IO;
 
 namespace AntiScrape.Tests
 {
@@ -16,8 +19,6 @@ namespace AntiScrape.Tests
     [TestClass()]
     public class AntiScrapeModuleTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
@@ -73,14 +74,56 @@ namespace AntiScrape.Tests
         [TestMethod()]
         public void InitTest()
         {
-            var mockSettings = new Mock<IAntiScrapeConfiguration>();
-            var mockApplication = new Mock<HttpApplicationBase>();
+            var mockConfig = GetMockConfiguration();
+            var mockApplication = GetMockApplication();
 
-            var target = new AntiScrapeModule(mockSettings.Object, obj => mockApplication.Object);
-                        
-            target.Init(mockApplication.Object);
-            
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            var target = new AntiScrapeModule(mockConfig.Object, obj => mockApplication.Object);
+
+            target.Init(mockApplication.Object);          
         }
+
+        [TestMethod()]
+        public void PipelineEventsTest()
+        {
+            var mockConfig = GetMockConfiguration();
+            var mockApplication = GetMockApplication();
+
+            var target = new AntiScrapeModule(mockConfig.Object, obj => mockApplication.Object);
+
+            target.Init(mockApplication.Object);
+
+            mockApplication.Raise(x => x.BeginRequest += null, EventArgs.Empty);
+            mockApplication.Raise(x => x.PostMapRequestHandler += null, EventArgs.Empty);
+        }
+
+
+        #region Test Helper Methods
+
+
+        private Mock<IAntiScrapeConfiguration> GetMockConfiguration()
+        {
+            var mockSettings = new Mock<IAntiScrapeConfiguration>();
+
+            mockSettings.SetupGet(x => x.Action).Returns(AntiScrapeAction.Delay);
+            mockSettings.SetupGet(x => x.ClassNameSalt).Returns("test-class-salt");
+            mockSettings.SetupGet(x => x.ContentVirtualPath).Returns("~/content.html");
+            mockSettings.SetupGet(x => x.ErrorCode).Returns(HttpStatusCode.NotFound);
+            mockSettings.SetupGet(x => x.HoneypotRelativeUrl).Returns("/honey/pot/");
+            mockSettings.SetupGet(x => x.MaxDelay).Returns(30000);
+            mockSettings.SetupGet(x => x.MinDelay).Returns(500);
+
+            return mockSettings;
+        }
+
+        private Mock<IHttpApplication> GetMockApplication()
+        {
+            var mockApplication = new Mock<IHttpApplication>();
+
+            mockApplication.SetupGet(x => x.Context).Returns(() => new HttpContext(new HttpRequest("test.html", "http://localhost/", ""), new HttpResponse(new StringWriter())));
+
+            return mockApplication;
+        }
+
+        #endregion
     }
 }

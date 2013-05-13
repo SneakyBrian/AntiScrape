@@ -27,6 +27,7 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 packages
-
-
 *.nupkg
+_UpgradeReport_Files*/
+Backup*/
+UpgradeLog.*

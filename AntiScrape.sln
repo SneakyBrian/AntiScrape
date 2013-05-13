@@ -1,10 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Web", "AntiScrape.Web\AntiScrape.Web.csproj", "{59F4770F-DFE9-42D1-960D-5A37EB119D73}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Core", "AntiScrape.Core\AntiScrape.Core.csproj", "{12592370-8CF6-4065-9F84-733A85515CAE}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E339E1E9-1BDB-4F2E-ABF0-BD2A634F982C}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -12,18 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E339E1
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.DataStorage", "AntiScrape.DataStorage\AntiScrape.DataStorage.csproj", "{4C5A05F1-FC5A-46EF-AAE9-456258478241}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{E2C8ED83-E13A-4042-A31A-AE5EF48F8629}"
 	ProjectSection(SolutionItems) = preProject
 		db\db.sql = db\db.sql
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.InMemoryStorage", "AntiScrape.InMemoryStore\AntiScrape.InMemoryStorage.csproj", "{26D8A2FA-83C8-42DD-9285-560520033622}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Support", "AntiScrape.Support\AntiScrape.Support.csproj", "{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Tests", "AntiScrape.Tests\AntiScrape.Tests.csproj", "{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{59638244-F4ED-4B38-8A89-44E362539739}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,6 +19,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Web", "AntiScrape.Web\AntiScrape.Web.csproj", "{59F4770F-DFE9-42D1-960D-5A37EB119D73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Core", "AntiScrape.Core\AntiScrape.Core.csproj", "{12592370-8CF6-4065-9F84-733A85515CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.DataStorage", "AntiScrape.DataStorage\AntiScrape.DataStorage.csproj", "{4C5A05F1-FC5A-46EF-AAE9-456258478241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.InMemoryStorage", "AntiScrape.InMemoryStore\AntiScrape.InMemoryStorage.csproj", "{26D8A2FA-83C8-42DD-9285-560520033622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Support", "AntiScrape.Support\AntiScrape.Support.csproj", "{A8E99B71-DA9B-4B2F-9F84-E345D5C6A156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScrape.Tests", "AntiScrape.Tests\AntiScrape.Tests.csproj", "{5D66FE78-2686-4877-88C9-B2EAEBC3F1E4}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

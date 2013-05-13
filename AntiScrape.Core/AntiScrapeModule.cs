@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Threading;
-using System.Net;
-using System.Web.UI;
-using System.IO;
 using System.Diagnostics;
-using System.ComponentModel;
+using System.IO;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Web;
+using System.Web.UI;
+using AntiScrape.Core.Interfaces;
+using AntiScrape.Core.IoC;
+using AntiScrape.Support;
 using Microsoft.Practices.Unity;
 using UnityConfiguration;
-using AntiScrape.Core.IoC;
-using AntiScrape.Core.Interfaces;
-using System.Security.Cryptography;
-using AntiScrape.Support;
 
 namespace AntiScrape.Core
 {
@@ -23,15 +21,15 @@ namespace AntiScrape.Core
         private IDataStorage _storage;
         private readonly byte[] _saltBytes;
         private readonly IAntiScrapeConfiguration _settings;
-        private readonly Func<object, HttpApplicationBase> _getApplicationBase;
+        private readonly Func<object, IHttpApplication> _getApplicationBase;
         
         public AntiScrapeModule()
             : this(AntiScrapeConfiguration.Settings, 
                     obj => new HttpApplicationWrapper(obj as HttpApplication))
         { }
 
-        public AntiScrapeModule(IAntiScrapeConfiguration settings, 
-                                Func<object, HttpApplicationBase> getApplicationBase)
+        public AntiScrapeModule(IAntiScrapeConfiguration settings,
+                                Func<object, IHttpApplication> getApplicationBase)
         {
             _settings = settings;
 
@@ -47,7 +45,7 @@ namespace AntiScrape.Core
             Init(_getApplicationBase(context));
         }
 
-        public void Init(HttpApplicationBase context)
+        public void Init(IHttpApplication context)
         {
             Debug.WriteLine("AntiScrapeModule.Init");
 
