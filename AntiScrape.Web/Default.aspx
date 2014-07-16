@@ -33,5 +33,25 @@
             } %>
         </tbody>
     </table>
+
+    <h3>
+        Here is the list of currently detected valid browsers:
+    </h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Partial IP</th>
+                <th>User Agent</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%  foreach (var item in new AntiScrape.DataStorage.SQLDataStorage().GetValidUsers(50))
+            {
+                Response.Write(string.Format("<tr><td>...{0}</td><td>{1}</td><td>{2}</td></tr>", item.IP.Substring(item.IP.Length / 2, item.IP.Length / 2), item.UserAgent, item.Timestamp)); 
+            } %>
+        </tbody>
+    </table>
         
 </asp:Content>

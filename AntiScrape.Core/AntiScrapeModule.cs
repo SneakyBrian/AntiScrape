@@ -22,6 +22,7 @@ namespace AntiScrape.Core
         private readonly byte[] _saltBytes;
         private readonly IAntiScrapeConfiguration _settings;
         private readonly Func<object, IHttpApplication> _getApplicationBase;
+        private IHttpApplication _application;
         
         public AntiScrapeModule()
             : this(AntiScrapeConfiguration.Settings, 
@@ -61,13 +62,15 @@ namespace AntiScrape.Core
 
             context.BeginRequest += OnBeginRequest;
             context.PostMapRequestHandler += OnPostMapRequestHandler;
+
+            _application = context;
         }
 
         void OnPostMapRequestHandler(object sender, EventArgs e)
         {
             Debug.WriteLine("AntiScrapeModule.OnPostMapRequestHandler");
 
-            var application = _getApplicationBase(sender);
+            var application = _application;
 
             var context = application.Context;
             var page = context.CurrentHandler as Page;
@@ -100,15 +103,16 @@ namespace AntiScrape.Core
 
                 Debug.WriteLine(string.Format("class name: {0}", className));
 
-                var linkUri = new Uri(_settings.HoneypotRelativeUrl, UriKind.Relative);
+                var honeyLinkUri = new Uri(_settings.HoneypotRelativeUrl, UriKind.Relative);
+                var reverseHoneyLinkUri = new Uri(_settings.ReverseHoneypotRelativeUrl, UriKind.Relative);
 
-                Debug.WriteLine(string.Format("Link Uri: {0}", linkUri));
+                Debug.WriteLine(string.Format("Link Uri: {0}", honeyLinkUri));
 
                 //add css for link
-                page.Header.Controls.Add(new LiteralControl(string.Format("<style type=\"text/css\">.{0} {{ display: none; }}</style>", className)));
+                page.Header.Controls.Add(new LiteralControl(string.Format("<style type=\"text/css\">.{0} {{ display: none; background-image: url({1}); }}</style>", className, reverseHoneyLinkUri)));
 
                 //add link
-                page.Form.Controls.Add(new LiteralControl(string.Format("<a class=\"{0}\" href=\"{1}\">{1}</a>", className, linkUri)));
+                page.Form.Controls.Add(new LiteralControl(string.Format("<a class=\"{0}\" href=\"{1}\">{1}</a>", className, honeyLinkUri)));
             }
         }
 
@@ -116,11 +120,19 @@ namespace AntiScrape.Core
         {
             Debug.WriteLine("AntiScrapeModule.OnBeginRequest");
 
-            var application = _getApplicationBase(sender);
+            var application = _application;
 
             if (application != null)
-            {                
-                if (application.Context.Request.Url.AbsolutePath.Contains(_settings.HoneypotRelativeUrl))
+            {
+                if (application.Context.Request.Url.AbsolutePath.Contains(_settings.ReverseHoneypotRelativeUrl))
+                {
+                    Debug.WriteLine(string.Format("Request.Url.AbsolutePath '{0}' contains '{1}'",
+                                        application.Context.Request.Url.AbsolutePath,
+                                        _settings.ReverseHoneypotRelativeUrl));
+
+                    _storage.StoreValidRequest(application.Context.Request);
+                }
+                else if (application.Context.Request.Url.AbsolutePath.Contains(_settings.HoneypotRelativeUrl))
                 {
                     Debug.WriteLine(string.Format("Request.Url.AbsolutePath '{0}' contains '{1}'", 
                                         application.Context.Request.Url.AbsolutePath, 

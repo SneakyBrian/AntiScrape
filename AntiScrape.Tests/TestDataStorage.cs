@@ -14,5 +14,14 @@ namespace AntiScrape.Tests
             return true;
         }
 
+        public void StoreValidRequest(System.Web.HttpRequest request)
+        {
+
+        }
+
+        public bool IsKnownValidClient(System.Web.HttpRequest request)
+        {
+            return true;
+        }
     }
 }

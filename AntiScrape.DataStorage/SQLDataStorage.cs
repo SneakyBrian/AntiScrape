@@ -22,6 +22,15 @@ namespace AntiScrape.DataStorage
             }
         }
 
+        public void StoreValidRequest(HttpRequest request)
+        {
+            using (var db = GetDB())
+            {
+                db.Execute("insert into LegitimateRequests ([IP], [HostName], [UserAgent], [Referrer], [Params], [Headers], [Timestamp]) values (@IP, @HostName, @UserAgent, @Referrer, @Params, @Headers, @Timestamp)",
+                    ScrapeRequest.FromHttpRequest(request));
+            }
+        }
+
         public bool IsKnownScraper(HttpRequest request)
         {
             using (var db = GetDB())
@@ -32,11 +41,29 @@ namespace AntiScrape.DataStorage
             }
         }
 
+        public bool IsKnownValidClient(HttpRequest request)
+        {
+            using (var db = GetDB())
+            {
+                var count = db.Query<int>(@"select count([IP]) from LegitimateRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
+
+                return count > 0;
+            }
+        }
+
         public IEnumerable<dynamic> GetScrapers(int count)
         {
             using (var db = GetDB())
             {
                 return db.Query("select top (@Count) * from ScrapeRequests order by [Timestamp] desc", new { Count = count });
+            }
+        }
+
+        public IEnumerable<dynamic> GetValidUsers(int count)
+        {
+            using (var db = GetDB())
+            {
+                return db.Query("select top (@Count) * from LegitimateRequests order by [Timestamp] desc", new { Count = count });
             }
         }
 

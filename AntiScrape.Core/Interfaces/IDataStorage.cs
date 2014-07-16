@@ -9,7 +9,9 @@ namespace AntiScrape.Core.Interfaces
     public interface IDataStorage
     {
         void StoreScrapingRequest(HttpRequest request);
+        void StoreValidRequest(HttpRequest request);
 
         bool IsKnownScraper(HttpRequest request);
+        bool IsKnownValidClient(HttpRequest request);
     }
 }

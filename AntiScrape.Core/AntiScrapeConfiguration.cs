@@ -25,6 +25,13 @@ namespace AntiScrape.Core
             set { this["honeypotRelativeUrl"] = value; }
         }
 
+        [ConfigurationProperty("reverseHoneypotRelativeUrl", IsRequired = true)]
+        public string ReverseHoneypotRelativeUrl
+        {
+            get { return (string)this["reverseHoneypotRelativeUrl"]; }
+            set { this["reverseHoneypotRelativeUrl"] = value; }
+        }
+
         [ConfigurationProperty("action", IsRequired = true)]
         public AntiScrapeAction Action
         {

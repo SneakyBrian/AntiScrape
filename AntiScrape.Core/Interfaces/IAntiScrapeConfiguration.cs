@@ -10,6 +10,7 @@ namespace AntiScrape.Core.Interfaces
         string ContentVirtualPath { get; }
         HttpStatusCode ErrorCode { get; }
         string HoneypotRelativeUrl { get; }
+        string ReverseHoneypotRelativeUrl { get; }
         int MaxDelay { get; }
         int MinDelay { get; }
     }
