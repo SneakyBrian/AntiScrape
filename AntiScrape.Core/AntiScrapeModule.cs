@@ -131,6 +131,8 @@ namespace AntiScrape.Core
                                         _settings.ReverseHoneypotRelativeUrl));
 
                     _storage.StoreValidRequest(application.Context.Request);
+
+                    return;
                 }
                 else if (application.Context.Request.Url.AbsolutePath.Contains(_settings.HoneypotRelativeUrl))
                 {

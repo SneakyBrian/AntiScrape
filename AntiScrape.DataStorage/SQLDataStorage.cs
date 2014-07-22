@@ -15,55 +15,65 @@ namespace AntiScrape.DataStorage
     {
         public void StoreScrapingRequest(HttpRequest request)
         {
-            using (var db = GetDB())
-            {
-                db.Execute("insert into ScrapeRequests ([IP], [HostName], [UserAgent], [Referrer], [Params], [Headers], [Timestamp]) values (@IP, @HostName, @UserAgent, @Referrer, @Params, @Headers, @Timestamp)", 
-                    ScrapeRequest.FromHttpRequest(request));
-            }
+            StoreRequest(request, ClientType.Scraper);
         }
 
         public void StoreValidRequest(HttpRequest request)
         {
-            using (var db = GetDB())
-            {
-                db.Execute("insert into LegitimateRequests ([IP], [HostName], [UserAgent], [Referrer], [Params], [Headers], [Timestamp]) values (@IP, @HostName, @UserAgent, @Referrer, @Params, @Headers, @Timestamp)",
-                    ScrapeRequest.FromHttpRequest(request));
-            }
+            StoreRequest(request, ClientType.Legitimate);
         }
 
         public bool IsKnownScraper(HttpRequest request)
         {
-            using (var db = GetDB())
-            {
-                var count = db.Query<int>(@"select count([IP]) from ScrapeRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
-
-                return count > 0;
-            }
+            return IsKnownType(request, ClientType.Scraper);
         }
 
         public bool IsKnownValidClient(HttpRequest request)
         {
+            return IsKnownType(request, ClientType.Legitimate);
+        }
+
+        public IEnumerable<dynamic> GetScrapers(int count)
+        {
+            return GetRequestsOfType(count, ClientType.Scraper);
+        }
+
+        public IEnumerable<dynamic> GetValidUsers(int count)
+        {
+            return GetRequestsOfType(count, ClientType.Legitimate);
+        }
+
+        private void StoreRequest(HttpRequest request, ClientType clientType)
+        {
+            //if we've already got this recorded
+            if (IsKnownType(request, clientType))
+            {
+                //bail
+                return;
+            }
+
             using (var db = GetDB())
             {
-                var count = db.Query<int>(@"select count([IP]) from LegitimateRequests where IP = @IP and UserAgent = @UserAgent", ScrapeRequest.FromHttpRequest(request)).Single();
+                db.Execute("insert into ClientRequests ([IP], [HostName], [UserAgent], [Referrer], [Params], [Headers], [Timestamp], [UserType]) values (@IP, @HostName, @UserAgent, @Referrer, @Params, @Headers, @Timestamp, @ClientType)",
+                    ClientRequest.FromHttpRequest(request, clientType));
+            }
+        }
+
+        private bool IsKnownType(HttpRequest request, ClientType clientType)
+        {
+            using (var db = GetDB())
+            {
+                var count = db.Query<int>(@"select count([IP]) from ClientRequests where IP = @IP and UserAgent = @UserAgent and UserType = @ClientType", ClientRequest.FromHttpRequest(request, clientType)).Single();
 
                 return count > 0;
             }
         }
 
-        public IEnumerable<dynamic> GetScrapers(int count)
+        private IEnumerable<dynamic> GetRequestsOfType(int count, ClientType clientType)
         {
             using (var db = GetDB())
             {
-                return db.Query("select top (@Count) * from ScrapeRequests order by [Timestamp] desc", new { Count = count });
-            }
-        }
-
-        public IEnumerable<dynamic> GetValidUsers(int count)
-        {
-            using (var db = GetDB())
-            {
-                return db.Query("select top (@Count) * from LegitimateRequests order by [Timestamp] desc", new { Count = count });
+                return db.Query("select top (@Count) * from ClientRequests where UserType = @ClientType order by [Timestamp] desc", new { Count = count, ClientType = clientType });
             }
         }
 

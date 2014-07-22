@@ -8,6 +8,6 @@ namespace AntiScrape.DataStorage
 {
     class DataRepository : Database<DataRepository>
     {
-        public Table<ScrapeRequest> ScrapeRequests { get; set; }
+        public Table<ClientRequest> ScrapeRequests { get; set; }
     }
 }

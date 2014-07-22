@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AntiScrape.DataStorage
 {
-    class ScrapeRequest
+    class ClientRequest
     {
         public string IP { get; set; }
         public string HostName { get; set; }
@@ -15,10 +15,11 @@ namespace AntiScrape.DataStorage
         public string Params { get; set; }
         public string Headers { get; set; }
         public DateTime Timestamp { get; set; }
+        public ClientType ClientType { get; set; }
 
-        public static ScrapeRequest FromHttpRequest(HttpRequest request)
+        public static ClientRequest FromHttpRequest(HttpRequest request, ClientType clientType)
         {
-            return new ScrapeRequest
+            return new ClientRequest
             {
                 IP = request.UserHostAddress,
                 HostName = request.UserHostName,
@@ -26,8 +27,16 @@ namespace AntiScrape.DataStorage
                 Referrer = request.UrlReferrer != null ? request.UrlReferrer.ToString() : string.Empty,
                 Params = request.Params.AllKeys.Select(key => string.Format("{0}={1}", key, request.Params[key])).Aggregate((a, b) => string.Format("{0};{1}", a, b)),
                 Headers = request.Headers.AllKeys.Select(key => string.Format("{0}={1}", key, request.Headers[key])).Aggregate((a, b) => string.Format("{0};{1}", a, b)),
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow,
+                ClientType = clientType
             };
         }
+    }
+
+    enum ClientType
+    {
+        Legitimate = 1,
+
+        Scraper = 2
     }
 }
