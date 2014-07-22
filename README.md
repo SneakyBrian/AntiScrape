@@ -4,7 +4,7 @@
 
 ## Development Status ##
 
-This software is currently in active development, and so **not recommended** for production environments at present.
+This software is currently in development, and so **not recommended** for production environments at present.
 
 ## Live Demo ##
 
@@ -26,6 +26,8 @@ You can either:
 - Do nothing, other than log the scraping activity.
 
 The settings for AntiScrape are integrated into the web applications web.config.
+
+AntiScrape also adds hidden urls that legitimate browsers *will* follow, but scrapers won't. Requesting one of these urls will record the browser as being genuine.
 
 ## How are the scraping requests logged? ##
 
